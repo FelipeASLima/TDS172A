@@ -14,11 +14,11 @@ namespace ToDoMvc.Controllers
 
         public readonly IToDoItemService _toDoItemService;
 
-        public ToDoController (IToDoItemService service)
+        public ToDoController(IToDoItemService service)
         {
             _toDoItemService = service;
         }
-        public async  Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             //busca item de algum lugar
             //se necessario cura uma view model
@@ -29,7 +29,7 @@ namespace ToDoMvc.Controllers
             };
 
             return View(vm);
-            
+
         }
         public async Task<IActionResult> AddItem(NewToDoItem newItem)
         {
@@ -44,5 +44,15 @@ namespace ToDoMvc.Controllers
             return Ok();
         }
 
+        public async Task<IActionResult> MarkDone(Guid id)
+        {
+            if (id == Guid.Empty) return BadRequest();
+
+            var successfull = await _toDoItemService.MarkDoneAsync(id);
+            if (!successfull)
+                return BadRequest(
+                    new { error = "Cloud not mark item as done" });
+            return Ok();
+        }
     }
 }
