@@ -1,7 +1,8 @@
 ﻿// Write your JavaScript code.
 $(document).ready(function () {
-    $('#add-item-button')
-        .on('click', addItem);
+    $('#add-item-button').on('click', addItem());
+    $('.done').on('click', markDone);
+    $('.edit').on('click', edit);
 });
 
 var postError = (function () {
@@ -43,6 +44,25 @@ function markDone(ev) {
                 .parentElement
                 .parentElement;
             row.classList.add('done');
+        }
+    ).fail(postError.onError);
+}
+
+var edit = (function () {
+    var $editTitle = $('')
+})
+
+function edit(ev) {
+    ev.target.disable = true;
+    postError.hide();
+    $.post('/ToDo/GetItem',
+        { id: ev.target.name },
+        function (item) {
+            $('#edit-item-title').val(item.title);
+            $('#edit-item-due-at').val(item.dueAt);
+            $('#edit-item-id').val(item.id);
+            $('#edit-item-modal').modal('Show');
+            ev
         }
     ).fail(postError.onError);
 }
