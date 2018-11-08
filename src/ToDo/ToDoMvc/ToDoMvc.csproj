@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-ToDoMvc-E63D2E50-E985-4602-B403-5BE8E7BDA6EE</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\images\banner1.svg" />
+    <Content Remove="wwwroot\images\banner2.svg" />
+    <Content Remove="wwwroot\images\banner3.svg" />
+    <Content Remove="wwwroot\images\banner4.svg" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Humanizer" Version="2.5.1" />

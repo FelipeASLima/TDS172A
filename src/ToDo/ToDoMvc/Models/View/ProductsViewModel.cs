@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace ToDoMvc.Models.View
 {
-    public class ToDoViewModel
+    public class ProductsViewModel
     {
-        public IEnumerable<ToDoItem> Items { get; set; }
-
-		public IEnumerable<ToDoItem> Products { get; set; }
+		public IEnumerable<Product> products { get; set; }
+		
 	}
 }

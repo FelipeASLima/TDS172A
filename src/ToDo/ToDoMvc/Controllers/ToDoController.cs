@@ -26,7 +26,8 @@ namespace ToDoMvc.Controllers
             var vm = new ToDoViewModel()
             {
                 Items = await _toDoItemService.GetIncompleteItemsAsync()
-            };
+				
+			};
 
             return View(vm);
 
@@ -43,15 +44,37 @@ namespace ToDoMvc.Controllers
                 return BadRequest(new { error = "Could not add item" });
             return Ok();
         }
-
         public async Task<IActionResult> MarkDone(Guid id)
         {
             if (id == Guid.Empty) return BadRequest();
 
-            var successfull = await _toDoItemService.MarkDoneAsync(id);
-            if (!successfull)
-                return BadRequest(
-                    new { error = "Cloud not mark item as done" });
+            var succesfull = await _toDoItemService.MarkDoneAsync(id);
+
+            if (!succesfull)
+                return BadRequest(new { error = "could not mark item as done" });
+            return Ok();
+        }
+
+        public async Task<IActionResult> GetItem(Guid id)
+        {
+            if (id == Guid.Empty) return BadRequest();
+
+            var item = await _toDoItemService.GetItemAsync(id);
+
+            if (item==null)
+                return BadRequest(new { error = "could not edit item" });
+            return Ok(item);
+        }
+
+        public async Task<IActionResult> SaveEdit(ToDoItem todo)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var succesfull = await _toDoItemService.SaveEditItemAsync(todo);
+
+            if (!succesfull)
+                return BadRequest(new { error = "Could not save item" });
+            
             return Ok();
         }
     }

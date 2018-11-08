@@ -12,5 +12,7 @@ namespace ToDoMvc.Services
 
         Task<bool> AddItemAsync(NewToDoItem newItem);
         Task<bool> MarkDoneAsync(Guid id);
+        Task<ToDoItem> GetItemAsync(Guid id);
+        Task<bool> SaveEditItemAsync(ToDoItem todo);
     }
 }

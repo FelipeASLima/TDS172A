@@ -1,77 +1,150 @@
 ﻿@model ToDoMvc.Models.View.ToDoViewModel
+
 @using Humanizer
 
 @{
-    ViewData["Title"] = "Manage your todo list";
+	ViewData["Title"] = "My Gets";
 }
 
 <div class="panel panel-default todo-panel">
-    <div class="panel-heading">@ViewData["Title"]</div>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Due</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Items)
-            {
-            <tr>
-                <td>@item.Title</td>
-                <td>@item.DueAt.Humanize()</td>
-                <td>
-                    <input type="button"
-                           name="@item.Id"
-                           value="Done"
-                           class="btn btn-default done" />
-
-                    <input type="button"
-                           name="@item.Id"
-                           value="Edit"
-                           class="btn btn-default edit" />
-                </td>
-            </tr>
-
-            }
-        </tbody>
-    </table>
-    <div class="panel-footer add-item-form">
-        <form>
-            <div id="add-item-error" class="text-danger"></div>
-            <label for="add-item-title">Add a new item:</label>
-            <input id="add-item-title" />
-            <label for="add-item-due-at">Due At:</label>
-            <input id="add-item-due-at" type="date" />
-            <button type="button" id="add-item-button">Add</button>
-        </form>
-    </div>
+	<div class="panel-heading">@ViewData["Title"]</div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>MY Need</th>
+				<th>Price</th>
+				<th>Address</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.Items)
+			{
+				<tr>
+					<!--<td>
+						<input type="checkbox"
+							   name="@item.Id"
+							   value="true"
+							   class="done-checkbox" />
+					</td>-->
+					<td>@item.Title</td>
+					<td>@item.DueAt.Humanize()</td>
+					<td></td>
+					<td>
+						<button class="btn btn-primary done" name="@item.Id">Gotcha</button>
+						
+						<button class="btn btn-danger del" name="@item.Id">Regret</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	<div class="panel-footer add-item-form">
+		
+	</div>
 </div>
 
-<div class="modal fade" id="edit-item-modal" tabindex="-1" role="dialog" aria-labelledby="edit-item-modal-label">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="edit-item-modal-label">New message</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="control-label">Recipient:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="control-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
-            </div>
-        </div>
-    </div>
+<div class="modal fade" id="edit-item-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-label">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="edit-modal-label">Edit</h4>
+			</div>
+			<div class="modal-body">
+				<form>
+					<input type="hidden" id="edit-item-id">
+					<div class="form-group">
+						<label for="edit-item-title" class="control-label">Title</label>
+						<input type="text" class="form-control" id="edit-item-title">
+					</div>
+					<div class="form-group">
+						<label for="edit-item-due-at" class="control-label">DueAt</label>
+						<input type="date" class="form-control" id="edit-item-due-at">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+				<button type="button" id="save" class="btn btn-primary">Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<div class="panel panel-default todo-panel">
+	<div class="panel-heading">My Needs</div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Description</th>
+				<th>Price</th>
+				<th>Address</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var product in Model.Products)
+			{
+				<tr>
+					<!--<td>
+						<input type="checkbox"
+							   name="@product.Id"
+							   value="true"
+							   class="done-checkbox" />
+					</td>-->
+					<td>@product.Title</td>
+					<td>@product.Price</td>
+					<td>@product.Address</td>
+					<td>
+						
+						<button class="btn btn-warning edit" name="@product.Id">BUY</button>
+						
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	<div class="panel-footer add-item-form">
+		<form>
+			<div id="add-item-error" class="text-danger"></div>
+			<label for="add-item-title">Add a new item:</label>
+			<input id="add-item-title" />
+			<label for="add-item-due-at">Due At:</label>
+			<input id="add-item-due-at" type="date" />
+			<button type="button" id="add-item-button">Add</button>
+		</form>
+	</div>
+</div>
+
+<div class="modal fade" id="edit-item-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-label">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="edit-modal-label">Edit</h4>
+			</div>
+			<div class="modal-body">
+				<form>
+					<input type="hidden" id="edit-item-id">
+					<div class="form-group">
+						<label for="edit-item-title" class="control-label">Title</label>
+						<input type="text" class="form-control" id="edit-item-title">
+					</div>
+					<div class="form-group">
+						<label for="edit-item-due-at" class="control-label">DueAt</label>
+						<input type="date" class="form-control" id="edit-item-due-at">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+				<button type="button" id="save" class="btn btn-primary">Save</button>
+			</div>
+		</div>
+	</div>
 </div>

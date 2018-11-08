@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ToDoMvc.Models
+namespace ToDoMVC.Models
 {
-    public class ToDoItem
-    {
+	public class ToDoItem
+	{
 		public Guid Id { get; set; }
 		public bool IsDone { get; set; }
 		public string Title { get; set; }
@@ -15,5 +15,8 @@ namespace ToDoMvc.Models
 		public String Address { get; set; }
 
 
-	}
+
+
+
+    }
 }
